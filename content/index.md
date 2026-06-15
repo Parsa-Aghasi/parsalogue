@@ -1,10 +1,9 @@
 ---
 title: Parsalogue
+unlisted: true
 ---
 
-# Parsalogue
-
-نوشته‌های پارسا آقاسی
+نوشته های پارسا آقاسی
 
 ## نوشته‌ها
 

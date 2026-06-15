@@ -13,12 +13,12 @@ configuration:
     - templates
     - .obsidian
   theme:
-    fontOrigin: googleFonts
+    fontOrigin: local
     cdnCaching: true
     typography:
-      header: Schibsted Grotesk
-      body: Source Sans Pro
-      code: IBM Plex Mono
+      header: Vazirmatn
+      body: Vazirmatn
+      code: Vazirmatn
     colors:
       lightMode:
         light: "#faf8f8"
@@ -100,6 +100,19 @@ plugins:
     order: 92
   - source: github:quartz-community/fonts
     enabled: true
+    options:
+      fontOrigin: local
+      title: Vazirmatn
+      header: Vazirmatn
+      body: Vazirmatn
+      code: Vazirmatn
+      interface: Vazirmatn
+      h1: Vazirmatn
+      h2: Vazirmatn
+      h3: Vazirmatn
+      h4: Vazirmatn
+      h5: Vazirmatn
+      h6: Vazirmatn
   - source: github:quartz-community/remove-draft
     enabled: true
   - source: github:quartz-community/explicit-publish
@@ -167,9 +180,13 @@ plugins:
       priority: 10
   - source: github:quartz-community/content-meta
     enabled: true
+    options:
+      showReadingTime: false
+      showComma: false
     layout:
       position: beforeBody
       priority: 20
+      condition: not-index
   - source: github:quartz-community/tag-list
     enabled: false
     layout:
