@@ -9,7 +9,9 @@
 }
 
 .page > #quartz-body .sidebar {
+  max-height: 100dvh;
   overflow-y: auto;
+  overscroll-behavior: contain;
   scrollbar-gutter: stable;
 }
 
@@ -84,6 +86,29 @@ hr {
   svg {
     height: 17px;
     width: 17px;
+  }
+}
+
+@media all and ($desktop) {
+  .page > #quartz-body .sidebar.right {
+    gap: 0.85rem;
+    height: 100dvh;
+    padding-bottom: 5rem;
+    padding-top: 4.75rem;
+  }
+
+  .page > #quartz-body .sidebar.right .graph > .graph-outer {
+    height: 220px;
+    min-height: 220px;
+  }
+
+  .page > #quartz-body .sidebar.right .toc {
+    max-height: 32dvh;
+  }
+
+  .page > #quartz-body .sidebar.right .backlinks {
+    flex-shrink: 0;
+    padding-bottom: 1rem;
   }
 }
 
