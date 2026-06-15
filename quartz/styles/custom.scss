@@ -27,6 +27,11 @@ blockquote {
   padding-right: 1rem;
 }
 
+.center article p,
+.center article li {
+  text-align: justify;
+}
+
 .recent-notes .recent-li:has(a[href$="/"]),
 .recent-notes .recent-li:has(a[href$="/index"]),
 .recent-notes .recent-li:has(a[href$="/parsalogue/"]) {
@@ -50,6 +55,36 @@ hr {
 .global-graph-container canvas {
   transform: scale(1.35);
   transform-origin: center;
+}
+
+.global-graph-close {
+  align-items: center;
+  background: color-mix(in srgb, var(--light) 82%, var(--lightgray));
+  border: 1px solid var(--lightgray);
+  border-radius: 7px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  color: var(--darkgray);
+  cursor: pointer;
+  display: flex;
+  font: inherit;
+  height: 32px;
+  justify-content: center;
+  padding: 0;
+  position: fixed;
+  right: calc(10vw + 0.75rem);
+  top: calc(10vh + 0.75rem);
+  width: 32px;
+  z-index: 10000;
+
+  &:hover {
+    background: var(--lightgray);
+    color: var(--dark);
+  }
+
+  svg {
+    height: 17px;
+    width: 17px;
+  }
 }
 
 .sidebar-collapse-toggle {

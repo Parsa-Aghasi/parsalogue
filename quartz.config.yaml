@@ -169,7 +169,7 @@ plugins:
         centerForce: 0.35
         linkDistance: 80
         fontSize: 0.8
-        opacityScale: 1.4
+        opacityScale: 4
         showTags: false
       globalGraph:
         scale: 1
@@ -177,7 +177,7 @@ plugins:
         centerForce: 0.25
         linkDistance: 85
         fontSize: 0.85
-        opacityScale: 1.4
+        opacityScale: 4
         showTags: false
     layout:
       position: right

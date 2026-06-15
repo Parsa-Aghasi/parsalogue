@@ -67,6 +67,46 @@ export default (() => {
               'localStorage.setItem("theme","dark");document.documentElement.setAttribute("saved-theme","dark");',
           }}
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (() => {
+                const closeGraph = () => {
+                  document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }))
+                  document.querySelectorAll(".global-graph-outer.active").forEach((graph) => {
+                    graph.classList.remove("active")
+                    const sidebar = graph.closest(".sidebar")
+                    if (sidebar instanceof HTMLElement) sidebar.style.zIndex = ""
+                  })
+                }
+
+                const ensureGraphCloseButtons = () => {
+                  document.querySelectorAll(".global-graph-outer").forEach((graph) => {
+                    if (graph.querySelector(".global-graph-close")) return
+
+                    const button = document.createElement("button")
+                    button.type = "button"
+                    button.className = "global-graph-close"
+                    button.setAttribute("aria-label", "Close graph view")
+                    button.setAttribute("title", "Close graph view")
+                    button.innerHTML =
+                      '<svg viewBox="0 0 18 18" aria-hidden="true"><path d="M4.5 4.5 13.5 13.5M13.5 4.5 4.5 13.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>'
+                    button.addEventListener("click", closeGraph)
+                    graph.appendChild(button)
+                  })
+                }
+
+                document.addEventListener("DOMContentLoaded", ensureGraphCloseButtons)
+                document.addEventListener("nav", ensureGraphCloseButtons)
+                document.addEventListener("render", ensureGraphCloseButtons)
+                new MutationObserver(ensureGraphCloseButtons).observe(document.documentElement, {
+                  childList: true,
+                  subtree: true,
+                })
+              })()
+            `,
+          }}
+        />
 
         <meta name="og:site_name" content={cfg.pageTitle}></meta>
         <meta property="og:title" content={title} />
