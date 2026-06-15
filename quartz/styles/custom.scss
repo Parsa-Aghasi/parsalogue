@@ -20,6 +20,27 @@
   padding-bottom: 3rem;
 }
 
+.page-title a {
+  align-items: center;
+  color: var(--secondary);
+  display: inline-flex;
+  gap: 0.65rem;
+  text-decoration: none;
+}
+
+.page-title a::before {
+  aspect-ratio: 1;
+  background: url("./static/logo.svg") center / contain no-repeat;
+  content: "";
+  flex: 0 0 auto;
+  filter: drop-shadow(0 2px 7px rgba(0, 0, 0, 0.22));
+  width: 2.35rem;
+}
+
+.page-title a:hover {
+  color: var(--tertiary);
+}
+
 blockquote {
   direction: rtl;
   text-align: right;
