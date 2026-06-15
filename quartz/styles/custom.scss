@@ -8,27 +8,111 @@
   font-display: swap;
 }
 
-.recent-notes .recent-ul {
+.page > #quartz-body .sidebar {
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+
+.page > #quartz-body .sidebar.left,
+.page > #quartz-body .sidebar.right {
+  padding-bottom: 3rem;
+}
+
+blockquote {
+  direction: rtl;
+  text-align: right;
+  border-left: none;
+  border-right: 3px solid var(--secondary);
+  padding-left: 0;
+  padding-right: 1rem;
+}
+
+.sidebar-collapse-toggle {
+  align-items: center;
+  appearance: none;
+  background: color-mix(in srgb, var(--light) 82%, var(--lightgray));
+  border: 1px solid var(--lightgray);
+  border-radius: 7px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  color: var(--darkgray);
+  cursor: pointer;
   display: flex;
-  flex-direction: column;
+  height: 28px;
+  justify-content: center;
+  padding: 0;
+  position: fixed;
+  top: 1rem;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+  width: 34px;
+  z-index: 20;
+
+  &:hover {
+    background: var(--lightgray);
+    color: var(--dark);
+  }
+
+  svg {
+    height: 16px;
+    width: 16px;
+  }
 }
 
-.recent-notes .recent-li:has(a[href$="در-باب-ترس-و-شجاعت"]) {
-  order: 1;
+.sidebar-collapse-toggle.left-toggle {
+  left: 1rem;
 }
 
-.recent-notes .recent-li:has(a[href$="برای-حفظ-عادت-نوشتن"]) {
-  order: 2;
+.sidebar-collapse-toggle.right-toggle {
+  right: 1rem;
 }
 
-.recent-notes .recent-li:has(a[href$="توهم-دانش-با-افزایش-پیچیدگی---anti-hero"]) {
-  order: 3;
+.sidebar-collapse-state {
+  position: fixed;
+  opacity: 0;
+  pointer-events: none;
 }
 
-.recent-notes .recent-li:has(a[href$="بدون-عنوان"]) {
-  order: 4;
+.sidebar-collapse-state.left-state:checked ~ .left.sidebar,
+.sidebar-collapse-state.right-state:checked ~ .right.sidebar {
+  display: none;
 }
 
-.recent-notes .recent-li:has(a[href$="معیاری-برای-اندازه-گیری-ارزش-زندگی"]) {
-  order: 5;
+.page > #quartz-body:has(.left-state:checked) {
+  grid-template-columns: 0 auto #{$sidePanelWidth} !important;
+}
+
+.page > #quartz-body:has(.right-state:checked) {
+  grid-template-columns: #{$sidePanelWidth} auto 0 !important;
+}
+
+.page > #quartz-body:has(.left-state:checked):has(.right-state:checked) {
+  grid-template-columns: 0 minmax(0, 900px) 0 !important;
+  justify-content: center;
+}
+
+.page > #quartz-body:has(.left-state:checked) .left-toggle {
+  transform: rotate(180deg);
+}
+
+.page > #quartz-body:has(.right-state:checked) .right-toggle {
+  transform: rotate(180deg);
+}
+
+.page > #quartz-body:has(.left-state:checked) .center,
+.page > #quartz-body:has(.right-state:checked) .center {
+  font-size: 1.08rem;
+}
+
+.page > #quartz-body:has(.left-state:checked):has(.right-state:checked) .center {
+  font-size: 1.13rem;
+}
+
+@media all and ($mobile) {
+  .sidebar-collapse-toggle,
+  .sidebar-collapse-state {
+    display: none;
+  }
 }
