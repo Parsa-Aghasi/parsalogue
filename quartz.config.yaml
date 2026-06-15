@@ -152,11 +152,33 @@ plugins:
     enabled: true
   - source: github:quartz-community/explorer
     enabled: true
+    options:
+      folderDefaultState: open
+      folderClickBehavior: collapse
+      useSavedState: false
     layout:
       position: left
       priority: 50
   - source: github:quartz-community/graph
     enabled: true
+    options:
+      localGraph:
+        depth: -1
+        scale: 1
+        repelForce: 1.1
+        centerForce: 0.35
+        linkDistance: 80
+        fontSize: 0.8
+        opacityScale: 1.4
+        showTags: false
+      globalGraph:
+        scale: 1
+        repelForce: 1.1
+        centerForce: 0.25
+        linkDistance: 85
+        fontSize: 0.85
+        opacityScale: 1.4
+        showTags: false
     layout:
       position: right
       priority: 10
@@ -243,7 +265,7 @@ plugins:
     enabled: true
     options:
       title: Recent Notes
-      limit: 5
+      limit: 6
       linkToMore: false
       showTags: true
     layout:

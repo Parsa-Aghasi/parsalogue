@@ -27,6 +27,31 @@ blockquote {
   padding-right: 1rem;
 }
 
+.recent-notes .recent-li:has(a[href$="/"]),
+.recent-notes .recent-li:has(a[href$="/index"]),
+.recent-notes .recent-li:has(a[href$="/parsalogue/"]) {
+  display: none;
+}
+
+hr {
+  max-width: 72%;
+}
+
+.graph > .graph-outer {
+  min-height: 280px;
+}
+
+.graph > .graph-outer,
+.graph > .global-graph-outer > .global-graph-container {
+  background-color: color-mix(in srgb, var(--light) 94%, var(--lightgray));
+}
+
+.graph-container canvas,
+.global-graph-container canvas {
+  transform: scale(1.35);
+  transform-origin: center;
+}
+
 .sidebar-collapse-toggle {
   align-items: center;
   appearance: none;
@@ -81,16 +106,38 @@ blockquote {
 }
 
 .page > #quartz-body:has(.left-state:checked) {
-  grid-template-columns: 0 auto #{$sidePanelWidth} !important;
+  grid-template-columns: 0 minmax(0, 950px) #{$sidePanelWidth} !important;
+  grid-template-areas:
+    "grid-header grid-header grid-sidebar-right"
+    "grid-center grid-center grid-sidebar-right"
+    "grid-footer grid-footer grid-sidebar-right" !important;
+  justify-content: center;
 }
 
 .page > #quartz-body:has(.right-state:checked) {
-  grid-template-columns: #{$sidePanelWidth} auto 0 !important;
+  grid-template-columns: #{$sidePanelWidth} minmax(0, 950px) 0 !important;
+  grid-template-areas:
+    "grid-sidebar-left grid-header grid-header"
+    "grid-sidebar-left grid-center grid-center"
+    "grid-sidebar-left grid-footer grid-footer" !important;
+  justify-content: center;
 }
 
 .page > #quartz-body:has(.left-state:checked):has(.right-state:checked) {
   grid-template-columns: 0 minmax(0, 900px) 0 !important;
+  grid-template-areas:
+    "grid-header grid-header grid-header"
+    "grid-center grid-center grid-center"
+    "grid-footer grid-footer grid-footer" !important;
   justify-content: center;
+}
+
+.page > #quartz-body:has(.left-state:checked) .center,
+.page > #quartz-body:has(.right-state:checked) .center {
+  grid-column: 2;
+  grid-row: 1 / 4;
+  min-width: 0;
+  width: 100%;
 }
 
 .page > #quartz-body:has(.left-state:checked) .left-toggle {

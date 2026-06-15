@@ -1,6 +1,5 @@
 ---
 title: Parsalogue
-unlisted: true
 ---
 
 نوشته های پارسا آقاسی
