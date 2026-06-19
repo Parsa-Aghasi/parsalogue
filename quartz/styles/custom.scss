@@ -118,8 +118,10 @@ blockquote {
 .language-gate {
   background: var(--light);
   color: var(--dark);
+  direction: ltr;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-areas: "english persian";
   min-height: 100dvh;
   width: 100%;
 }
@@ -142,7 +144,15 @@ blockquote {
     color 0.2s ease;
 }
 
-.language-gate__panel:first-child {
+.language-gate__panel--english {
+  grid-area: english;
+}
+
+.language-gate__panel--persian {
+  grid-area: persian;
+}
+
+.language-gate__panel--english {
   border-right: 1px solid var(--lightgray);
 }
 
@@ -540,13 +550,16 @@ hr {
 
   .language-gate {
     grid-template-columns: 1fr;
+    grid-template-areas:
+      "english"
+      "persian";
   }
 
   .language-gate__panel {
     min-height: 50dvh;
   }
 
-  .language-gate__panel:first-child {
+  .language-gate__panel--english {
     border-bottom: 1px solid var(--lightgray);
     border-right: none;
   }
@@ -555,13 +568,14 @@ hr {
 @media (max-width: 800px) and (orientation: landscape) {
   .language-gate {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas: "english persian";
   }
 
   .language-gate__panel {
     min-height: 100dvh;
   }
 
-  .language-gate__panel:first-child {
+  .language-gate__panel--english {
     border-bottom: none;
     border-right: 1px solid var(--lightgray);
   }
