@@ -97,6 +97,43 @@ export default (() => {
                     })
                 }
 
+                const quoteDirectionMarkers = [
+                  { pattern: /^\\s*\\[!?(?:quote-)?ltr\\]\\s*/i, className: "quote-ltr" },
+                  { pattern: /^\\s*\\[!?(?:quote-)?rtl\\]\\s*/i, className: "quote-rtl" },
+                ]
+
+                const applyBlockquoteDirections = () => {
+                  document.querySelectorAll("blockquote").forEach((quote) => {
+                    if (!(quote instanceof HTMLElement)) return
+
+                    const firstParagraph = quote.querySelector("p")
+                    if (!firstParagraph) return
+
+                    const firstTextNode = Array.from(firstParagraph.childNodes).find(
+                      (node) => node.nodeType === Node.TEXT_NODE && node.textContent?.trim(),
+                    )
+                    const rawText = firstTextNode?.textContent ?? ""
+                    const marker = quoteDirectionMarkers.find(({ pattern }) => pattern.test(rawText))
+                    if (!marker || !firstTextNode) {
+                      if (quote.dataset.quoteDirection === "manual") return
+                      if (/^[\\s"'“‘(]*[A-Za-z]/.test(firstParagraph.textContent ?? "")) {
+                        quote.classList.remove("quote-rtl")
+                        quote.classList.add("quote-ltr")
+                      }
+                      return
+                    }
+
+                    quote.classList.remove("quote-ltr", "quote-rtl")
+                    quote.classList.add(marker.className)
+                    quote.dataset.quoteDirection = "manual"
+                    firstTextNode.textContent = rawText.replace(marker.pattern, "")
+
+                    if (!firstParagraph.textContent?.trim() && firstParagraph.childNodes.length === 1) {
+                      firstParagraph.remove()
+                    }
+                  })
+                }
+
                 const closeGraph = () => {
                   document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }))
                   document.querySelectorAll(".global-graph-outer.active").forEach((graph) => {
@@ -125,6 +162,7 @@ export default (() => {
                 const enhancePage = () => {
                   ensureGraphCloseButtons()
                   renderInlineTitleMarkup()
+                  applyBlockquoteDirections()
                 }
 
                 document.addEventListener("DOMContentLoaded", enhancePage)

@@ -1,13 +1,15 @@
 ---
 title: Parsalogue
+unlisted: true
 ---
 
-نوشته های پارسا آقاسی
-
-## نوشته‌ها
-
-- [[معیاری برای اندازه گیری ارزش زندگی]]
-- [[بدون عنوان]]
-- [[توهم دانش با افزایش پیچیدگی - anti-hero|توهم دانش با افزایش پیچیدگی: anti-hero]]
-- [[برای حفظ عادت نوشتن]]
-- [[در باب ترس و شجاعت|در باب ترس و شجاعت: نگه داشتن پلی برای ~~فرار~~ برگشت]]
+<nav class="language-gate" aria-label="Choose blog version">
+  <a class="language-gate__panel" href="en">
+    <span class="language-gate__kicker">Choose blog version</span>
+    <span class="language-gate__title">English version</span>
+  </a>
+  <a class="language-gate__panel" href="fa" dir="rtl">
+    <span class="language-gate__kicker">نوع وبلاگ را انتخاب کنید</span>
+    <span class="language-gate__title">نسخه پارسی</span>
+  </a>
+</nav>
