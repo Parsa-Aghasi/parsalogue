@@ -4,6 +4,8 @@ unlisted: true
 aliases:
   - english/en
   - English/en
+cssclasses:
+  - hide-folder-list
 ---
 
 Parsa Aghasi's writings

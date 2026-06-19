@@ -3,6 +3,8 @@ title: Parsalogue
 aliases:
   - persian/fa
   - Persian/fa
+cssclasses:
+  - hide-folder-list
 ---
 
 نوشته های پارسا آقاسی

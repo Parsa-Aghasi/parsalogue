@@ -206,6 +206,10 @@ article a del {
   display: none;
 }
 
+.popover-hint > article.hide-folder-list + .page-listing {
+  display: none;
+}
+
 .breadcrumb-static {
   color: var(--gray);
   cursor: default;
