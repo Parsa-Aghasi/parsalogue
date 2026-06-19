@@ -166,6 +166,14 @@ blockquote {
   line-height: 1.1;
 }
 
+.language-gate__note {
+  color: var(--darkgray);
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  font-weight: 500;
+  line-height: 1.7;
+  max-width: 28rem;
+}
+
 .article-title,
 .breadcrumb-container,
 .recent-notes .desc h3,

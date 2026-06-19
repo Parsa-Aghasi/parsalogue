@@ -4,12 +4,14 @@ unlisted: true
 ---
 
 <nav class="language-gate" aria-label="Choose blog version">
-  <a class="language-gate__panel" href="en">
+  <a class="language-gate__panel" href="English/en">
     <span class="language-gate__kicker">Choose blog version</span>
     <span class="language-gate__title">English version</span>
+    <span class="language-gate__note">Weblog's English content differs from Persian content and vice versa</span>
   </a>
-  <a class="language-gate__panel" href="fa" dir="rtl">
+  <a class="language-gate__panel" href="Persian/fa" dir="rtl">
     <span class="language-gate__kicker">نوع وبلاگ را انتخاب کنید</span>
     <span class="language-gate__title">نسخه پارسی</span>
+    <span class="language-gate__note">مجموعه مطالب نسخه پارسی با نسخه انگلیسی وبلاگ متفاوت است و برعکس</span>
   </a>
 </nav>
