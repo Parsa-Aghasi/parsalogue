@@ -7,7 +7,7 @@ unlisted: true
   <a class="language-gate__panel language-gate__panel--english" href="English/en">
     <span class="language-gate__kicker">Choose blog version</span>
     <span class="language-gate__title">English version</span>
-    <span class="language-gate__note">Weblog's English content differs from Persian content and vice versa</span>
+    <span class="language-gate__note">English blog content differs from Persian content and vice versa</span>
   </a>
   <a class="language-gate__panel language-gate__panel--persian" href="Persian/fa" dir="rtl">
     <span class="language-gate__kicker">نوع وبلاگ را انتخاب کنید</span>

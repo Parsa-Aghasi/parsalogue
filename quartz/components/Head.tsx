@@ -159,8 +159,84 @@ export default (() => {
                   })
                 }
 
+                const pathnameFor = (href) => {
+                  try {
+                    return new URL(href, window.location.href).pathname.replace(/\\/+$/, "").toLowerCase()
+                  } catch {
+                    return ""
+                  }
+                }
+
+                const defaultDocumentLocale = {
+                  lang: document.documentElement.lang || "fa",
+                  dir: document.documentElement.dir || "rtl",
+                }
+
+                const deLinkFolderBreadcrumbs = () => {
+                  document.querySelectorAll(".breadcrumb-container a").forEach((link) => {
+                    if (!(link instanceof HTMLAnchorElement)) return
+
+                    const text = link.textContent?.trim().toLowerCase()
+                    const path = pathnameFor(link.href)
+                    const isFolderCrumb =
+                      (text === "persian" && path.endsWith("/persian")) ||
+                      (text === "english" && path.endsWith("/english"))
+
+                    if (!isFolderCrumb) return
+
+                    const staticCrumb = document.createElement("span")
+                    staticCrumb.className = "breadcrumb-static"
+                    staticCrumb.textContent = link.textContent
+                    link.replaceWith(staticCrumb)
+                  })
+                }
+
+                const localizeEnglishSection = () => {
+                  const isEnglishSection = document.body?.dataset.slug?.startsWith("english/")
+                  document.body?.classList.toggle("english-section", Boolean(isEnglishSection))
+
+                  if (!isEnglishSection) {
+                    document.documentElement.lang = defaultDocumentLocale.lang
+                    document.documentElement.dir = defaultDocumentLocale.dir
+                    document.body?.removeAttribute("dir")
+                    return
+                  }
+
+                  document.documentElement.lang = "en"
+                  document.documentElement.dir = "ltr"
+                  document.body.dir = "ltr"
+
+                  const setText = (selector, text) => {
+                    document.querySelectorAll(selector).forEach((element) => {
+                      if (element instanceof HTMLElement) element.textContent = text
+                    })
+                  }
+
+                  setText(".graph h3", "Graph View")
+                  setText(".toc h3", "Contents")
+                  setText(".backlinks h3", "Backlinks")
+                  setText(".explorer .title-button h2", "Pages")
+                  setText(".recent-notes h3", "Recent Notes")
+
+                  document.querySelectorAll(".search-button").forEach((button) => {
+                    if (!(button instanceof HTMLElement)) return
+                    button.setAttribute("aria-label", "Search")
+                    button.querySelectorAll("p").forEach((label) => {
+                      label.textContent = "Search"
+                    })
+                  })
+
+                  document.querySelectorAll("input[type='search'], .search-bar").forEach((input) => {
+                    if (!(input instanceof HTMLInputElement)) return
+                    input.placeholder = "Search"
+                    input.setAttribute("aria-label", "Search")
+                  })
+                }
+
                 const enhancePage = () => {
                   ensureGraphCloseButtons()
+                  deLinkFolderBreadcrumbs()
+                  localizeEnglishSection()
                   renderInlineTitleMarkup()
                   applyBlockquoteDirections()
                 }

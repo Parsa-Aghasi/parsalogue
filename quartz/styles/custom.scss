@@ -202,8 +202,48 @@ article a del {
 
 .recent-notes .recent-li:has(a[href$="/"]),
 .recent-notes .recent-li:has(a[href$="/index"]),
-.recent-notes .recent-li:has(a[href$="/parsalogue/"]) {
+.recent-notes .recent-li:has(a[href$="/parsalogue/"]),
+.recent-notes .recent-li:has(a[href$="/persian/fa"]) {
   display: none;
+}
+
+.breadcrumb-static {
+  color: var(--gray);
+  cursor: default;
+}
+
+body[data-slug^="english/"],
+body.english-section {
+  direction: ltr;
+}
+
+body[data-slug^="english/"] .center,
+body[data-slug^="english/"] .page-header,
+body.english-section .center,
+body.english-section .page-header {
+  direction: ltr;
+  text-align: left;
+}
+
+body[data-slug^="english/"] .center article,
+body.english-section .center article {
+  direction: ltr;
+}
+
+body[data-slug^="english/"] .center article p,
+body[data-slug^="english/"] .center article li,
+body.english-section .center article p,
+body.english-section .center article li {
+  text-align: left;
+}
+
+body[data-slug^="english/"] .graph,
+body[data-slug^="english/"] .explorer,
+body[data-slug^="english/"] .recent-notes,
+body.english-section .graph,
+body.english-section .explorer,
+body.english-section .recent-notes {
+  display: none !important;
 }
 
 hr {

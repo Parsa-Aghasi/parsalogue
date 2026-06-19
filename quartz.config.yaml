@@ -147,7 +147,7 @@ plugins:
   - source: github:quartz-community/content-page
     enabled: true
   - source: github:quartz-community/folder-page
-    enabled: true
+    enabled: false
   - source: github:quartz-community/tag-page
     enabled: true
   - source: github:quartz-community/explorer
@@ -166,18 +166,20 @@ plugins:
         depth: -1
         scale: 1
         repelForce: 1.1
-        centerForce: 0.35
-        linkDistance: 80
-        fontSize: 0.8
-        opacityScale: 4
+        centerForce: 0.25
+        linkDistance: 95
+        fontSize: 0.95
+        opacityScale: 2.25
         showTags: false
+        focusOnHover: true
+        enableRadial: true
       globalGraph:
         scale: 1
-        repelForce: 1.1
-        centerForce: 0.25
-        linkDistance: 85
-        fontSize: 0.85
-        opacityScale: 4
+        repelForce: 1.25
+        centerForce: 0.22
+        linkDistance: 100
+        fontSize: 0.95
+        opacityScale: 2.25
         showTags: false
     layout:
       position: right
