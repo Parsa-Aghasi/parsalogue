@@ -280,8 +280,10 @@ hr {
   }
 
   .page > #quartz-body .sidebar.left {
+    align-items: stretch;
     box-sizing: border-box;
     display: flex;
+    flex-direction: column;
     gap: 0.85rem;
     margin: 0 auto 1.5rem;
     max-height: none;
@@ -294,6 +296,13 @@ hr {
 
   .page > #quartz-body .sidebar.left .page-title {
     font-size: 1.45rem;
+    order: 1;
+    text-align: center;
+  }
+
+  .page > #quartz-body .sidebar.left .page-title a {
+    justify-content: center;
+    width: 100%;
   }
 
   .page > #quartz-body .sidebar.left .page-title a::before {
@@ -301,16 +310,37 @@ hr {
   }
 
   .page > #quartz-body .sidebar.left .recent-notes {
-    display: none;
+    display: block;
+    order: 2;
+    text-align: center;
   }
 
-  body[data-slug="index"] .page > #quartz-body .sidebar.left .recent-notes {
-    display: block;
+  .page > #quartz-body .sidebar.left .recent-notes h3 {
+    margin: 0 0 0.75rem;
+  }
+
+  .page > #quartz-body .sidebar.left .recent-ul {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: 1fr;
+    margin: 0;
+    padding: 0;
+  }
+
+  .page > #quartz-body .sidebar.left .recent-li {
+    width: 100%;
+  }
+
+  .page > #quartz-body .sidebar.left .recent-notes .desc h3 {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
   }
 
   .page > #quartz-body .sidebar.left .flex-component {
     direction: ltr;
     justify-content: flex-start;
+    order: 3;
     overflow: hidden;
     width: 100%;
   }
@@ -327,6 +357,7 @@ hr {
 
   .page > #quartz-body .sidebar.left .explorer {
     box-sizing: border-box;
+    order: 4;
     width: 100%;
   }
 
