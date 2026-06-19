@@ -164,17 +164,26 @@ export default (() => {
                   dir: document.documentElement.dir || "rtl",
                 }
 
-                const removeFolderBreadcrumbs = () => {
+                const normalizeLanguageBreadcrumbs = () => {
+                  const slug = document.body?.dataset.slug ?? ""
+                  const basepath = document.body?.dataset.basepath ?? ""
+
                   document.querySelectorAll(".breadcrumb-container a").forEach((link) => {
                     if (!(link instanceof HTMLAnchorElement)) return
 
                     const text = link.textContent?.trim().toLowerCase()
-                    const isFolderCrumb = text === "persian" || text === "english"
-
-                    if (!isFolderCrumb) return
+                    if (text !== "persian" && text !== "english") return
 
                     const crumb = link.closest(".breadcrumb-element")
-                    if (crumb) crumb.remove()
+                    const isLanguageHome = slug === "persian/fa" || slug === "english/en"
+
+                    if (isLanguageHome) {
+                      if (crumb) crumb.remove()
+                      return
+                    }
+
+                    const target = text === "persian" ? "persian/fa" : "english/en"
+                    link.href = basepath + "/" + target
                   })
                 }
 
@@ -222,7 +231,7 @@ export default (() => {
 
                 const enhancePage = () => {
                   ensureGraphCloseButtons()
-                  removeFolderBreadcrumbs()
+                  normalizeLanguageBreadcrumbs()
                   localizeEnglishSection()
                   renderInlineTitleMarkup()
                   applyBlockquoteDirections()
