@@ -1,6 +1,10 @@
 ---
-title: English version
+title: Parsalogue
 unlisted: true
 ---
 
-English version
+Parsa Aghasi's writings
+
+## Notes
+
+English notes will appear here.

@@ -159,35 +159,22 @@ export default (() => {
                   })
                 }
 
-                const pathnameFor = (href) => {
-                  try {
-                    return new URL(href, window.location.href).pathname.replace(/\\/+$/, "").toLowerCase()
-                  } catch {
-                    return ""
-                  }
-                }
-
                 const defaultDocumentLocale = {
                   lang: document.documentElement.lang || "fa",
                   dir: document.documentElement.dir || "rtl",
                 }
 
-                const deLinkFolderBreadcrumbs = () => {
+                const removeFolderBreadcrumbs = () => {
                   document.querySelectorAll(".breadcrumb-container a").forEach((link) => {
                     if (!(link instanceof HTMLAnchorElement)) return
 
                     const text = link.textContent?.trim().toLowerCase()
-                    const path = pathnameFor(link.href)
-                    const isFolderCrumb =
-                      (text === "persian" && path.endsWith("/persian")) ||
-                      (text === "english" && path.endsWith("/english"))
+                    const isFolderCrumb = text === "persian" || text === "english"
 
                     if (!isFolderCrumb) return
 
-                    const staticCrumb = document.createElement("span")
-                    staticCrumb.className = "breadcrumb-static"
-                    staticCrumb.textContent = link.textContent
-                    link.replaceWith(staticCrumb)
+                    const crumb = link.closest(".breadcrumb-element")
+                    if (crumb) crumb.remove()
                   })
                 }
 
@@ -235,7 +222,7 @@ export default (() => {
 
                 const enhancePage = () => {
                   ensureGraphCloseButtons()
-                  deLinkFolderBreadcrumbs()
+                  removeFolderBreadcrumbs()
                   localizeEnglishSection()
                   renderInlineTitleMarkup()
                   applyBlockquoteDirections()
