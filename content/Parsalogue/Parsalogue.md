@@ -1,5 +1,8 @@
 ---
 title: Parsalogue
+aliases:
+  - persian/fa
+  - Persian/fa
 ---
 
 نوشته های پارسا آقاسی

@@ -1,6 +1,9 @@
 ---
 title: Parsalogue
 unlisted: true
+aliases:
+  - english/en
+  - English/en
 ---
 
 Parsa Aghasi's writings

@@ -202,8 +202,7 @@ article a del {
 
 .recent-notes .recent-li:has(a[href$="/"]),
 .recent-notes .recent-li:has(a[href$="/index"]),
-.recent-notes .recent-li:has(a[href$="/parsalogue/"]),
-.recent-notes .recent-li:has(a[href$="/persian/fa"]) {
+.recent-notes .recent-li:has(a[href$="/parsalogue/"]) {
   display: none;
 }
 

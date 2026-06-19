@@ -164,29 +164,6 @@ export default (() => {
                   dir: document.documentElement.dir || "rtl",
                 }
 
-                const normalizeLanguageBreadcrumbs = () => {
-                  const slug = document.body?.dataset.slug ?? ""
-                  const basepath = document.body?.dataset.basepath ?? ""
-
-                  document.querySelectorAll(".breadcrumb-container a").forEach((link) => {
-                    if (!(link instanceof HTMLAnchorElement)) return
-
-                    const text = link.textContent?.trim().toLowerCase()
-                    if (text !== "persian" && text !== "english") return
-
-                    const crumb = link.closest(".breadcrumb-element")
-                    const isLanguageHome = slug === "persian/fa" || slug === "english/en"
-
-                    if (isLanguageHome) {
-                      if (crumb) crumb.remove()
-                      return
-                    }
-
-                    const target = text === "persian" ? "persian/fa" : "english/en"
-                    link.href = basepath + "/" + target
-                  })
-                }
-
                 const localizeEnglishSection = () => {
                   const isEnglishSection = document.body?.dataset.slug?.startsWith("english/")
                   document.body?.classList.toggle("english-section", Boolean(isEnglishSection))
@@ -231,7 +208,6 @@ export default (() => {
 
                 const enhancePage = () => {
                   ensureGraphCloseButtons()
-                  normalizeLanguageBreadcrumbs()
                   localizeEnglishSection()
                   renderInlineTitleMarkup()
                   applyBlockquoteDirections()
