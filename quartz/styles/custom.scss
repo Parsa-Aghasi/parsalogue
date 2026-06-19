@@ -65,7 +65,8 @@ blockquote {
 .article-title del,
 .breadcrumb-container del,
 .recent-notes del,
-.explorer del {
+.explorer del,
+article a del {
   text-decoration-thickness: 0.08em;
   text-underline-offset: 0.12em;
 }

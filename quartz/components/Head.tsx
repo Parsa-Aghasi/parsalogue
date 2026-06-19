@@ -74,7 +74,7 @@ export default (() => {
                 const renderInlineTitleMarkup = () => {
                   document
                     .querySelectorAll(
-                      ".article-title, .breadcrumb-container a, .recent-notes a.internal, .explorer a",
+                      ".article-title, .breadcrumb-container a, .recent-notes a.internal, .explorer a, article a",
                     )
                     .forEach((element) => {
                       if (!(element instanceof HTMLElement)) return
