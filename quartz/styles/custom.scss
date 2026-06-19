@@ -310,37 +310,13 @@ hr {
   }
 
   .page > #quartz-body .sidebar.left .recent-notes {
-    display: block;
-    order: 2;
-    text-align: center;
-  }
-
-  .page > #quartz-body .sidebar.left .recent-notes h3 {
-    margin: 0 0 0.75rem;
-  }
-
-  .page > #quartz-body .sidebar.left .recent-ul {
-    display: grid;
-    gap: 0.75rem;
-    grid-template-columns: 1fr;
-    margin: 0;
-    padding: 0;
-  }
-
-  .page > #quartz-body .sidebar.left .recent-li {
-    width: 100%;
-  }
-
-  .page > #quartz-body .sidebar.left .recent-notes .desc h3 {
-    font-size: 1rem;
-    line-height: 1.6;
-    margin: 0;
+    display: none;
   }
 
   .page > #quartz-body .sidebar.left .flex-component {
     direction: ltr;
     justify-content: flex-start;
-    order: 3;
+    order: 2;
     overflow: hidden;
     width: 100%;
   }
@@ -357,7 +333,7 @@ hr {
 
   .page > #quartz-body .sidebar.left .explorer {
     box-sizing: border-box;
-    order: 4;
+    order: 3;
     width: 100%;
   }
 
