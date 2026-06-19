@@ -71,6 +71,32 @@ export default (() => {
           dangerouslySetInnerHTML={{
             __html: `
               (() => {
+                const renderInlineTitleMarkup = () => {
+                  document
+                    .querySelectorAll(
+                      ".article-title, .breadcrumb-container a, .recent-notes a.internal, .explorer a",
+                    )
+                    .forEach((element) => {
+                      if (!(element instanceof HTMLElement)) return
+                      if (!element.textContent?.includes("~~")) return
+
+                      const parts = element.textContent.split(/(~~[^~]+~~)/g)
+                      const fragment = document.createDocumentFragment()
+
+                      parts.forEach((part) => {
+                        if (part.startsWith("~~") && part.endsWith("~~")) {
+                          const del = document.createElement("del")
+                          del.textContent = part.slice(2, -2)
+                          fragment.appendChild(del)
+                        } else {
+                          fragment.appendChild(document.createTextNode(part))
+                        }
+                      })
+
+                      element.replaceChildren(fragment)
+                    })
+                }
+
                 const closeGraph = () => {
                   document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }))
                   document.querySelectorAll(".global-graph-outer.active").forEach((graph) => {
@@ -96,10 +122,15 @@ export default (() => {
                   })
                 }
 
-                document.addEventListener("DOMContentLoaded", ensureGraphCloseButtons)
-                document.addEventListener("nav", ensureGraphCloseButtons)
-                document.addEventListener("render", ensureGraphCloseButtons)
-                new MutationObserver(ensureGraphCloseButtons).observe(document.documentElement, {
+                const enhancePage = () => {
+                  ensureGraphCloseButtons()
+                  renderInlineTitleMarkup()
+                }
+
+                document.addEventListener("DOMContentLoaded", enhancePage)
+                document.addEventListener("nav", enhancePage)
+                document.addEventListener("render", enhancePage)
+                new MutationObserver(enhancePage).observe(document.documentElement, {
                   childList: true,
                   subtree: true,
                 })
