@@ -17,8 +17,15 @@
 
 .page > #quartz-body .sidebar .explorer-content,
 .page > #quartz-body .sidebar .overflow {
-  max-height: none;
-  overflow: visible;
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+.page > #quartz-body .sidebar .explorer-content,
+.page > #quartz-body .sidebar .explorer-ul,
+.page > #quartz-body .sidebar .overflow {
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
 }
 
 .page > #quartz-body .sidebar.left,
@@ -47,10 +54,15 @@
     box-sizing: border-box;
     height: 100dvh;
     max-height: 100dvh;
+    min-height: 0;
     overflow-x: hidden;
     overflow-y: auto;
     position: sticky;
     top: 0;
+  }
+
+  .page > #quartz-body .sidebar > * {
+    flex: 0 0 auto;
   }
 
   .page > #quartz-body .center {
@@ -438,6 +450,13 @@ hr {
 .page > #quartz-body.left-sidebar-collapsed .left.sidebar,
 .page > #quartz-body.right-sidebar-collapsed .right.sidebar {
   display: none;
+}
+
+@media all and ($desktop) {
+  .page > #quartz-body.left-sidebar-collapsed > footer,
+  .page > #quartz-body.right-sidebar-collapsed > footer {
+    display: none;
+  }
 }
 
 .page > #quartz-body:has(.left-state:checked),
