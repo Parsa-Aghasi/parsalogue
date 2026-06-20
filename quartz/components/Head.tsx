@@ -274,9 +274,12 @@ export default (() => {
                   })
                 }
 
+                const configuredSitePath = ${JSON.stringify(path === "/" ? "" : path)}
+
                 const getSiteBasePath = () => {
                   const configuredBase = document.body?.dataset.basepath ?? ""
                   if (configuredBase) return configuredBase
+                  if (configuredSitePath) return configuredSitePath
 
                   const slug = (document.body?.dataset.slug ?? "").replace(/\\/index$/, "")
                   const pagePath = window.location.pathname.replace(/\\/$/, "")

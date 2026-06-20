@@ -1,9 +1,10 @@
 import { i18n } from "../../i18n"
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "../types"
 
-const NotFound: QuartzComponent = ({ cfg, ctx }: QuartzComponentProps) => {
+const NotFound: QuartzComponent = ({ cfg }: QuartzComponentProps) => {
   const url = new URL(`https://${cfg.baseUrl ?? "example.com"}`)
-  const baseDir = ctx.argv.serve ? "/" : url.pathname
+  const configuredBaseDir = url.pathname === "/" ? "/" : url.pathname
+  const baseDir = configuredBaseDir
 
   return (
     <article class="popover-hint">
@@ -15,12 +16,13 @@ const NotFound: QuartzComponent = ({ cfg, ctx }: QuartzComponentProps) => {
           __html: `
           if (typeof fetchData !== "undefined") {
             fetchData.then(function(index) {
-              var basePath = document.body.dataset.basepath || "";
+              var basePath = document.body.dataset.basepath || ${JSON.stringify(configuredBaseDir)};
               if (basePath.length > 1 && basePath.endsWith("/")) {
                 basePath = basePath.slice(0, -1);
               }
               var pathname = window.location.pathname;
-              var hasBasePrefix = basePath.length > 1 && pathname.startsWith(basePath);
+              var hasBasePrefix =
+                basePath.length > 1 && (pathname === basePath || pathname.startsWith(basePath + "/"));
               if (hasBasePrefix) {
                 pathname = pathname.slice(basePath.length);
               }
@@ -35,6 +37,13 @@ const NotFound: QuartzComponent = ({ cfg, ctx }: QuartzComponentProps) => {
               }
               if (pathname.endsWith("/index")) {
                 pathname = pathname.slice(0, -6);
+              }
+              try {
+                pathname = decodeURIComponent(pathname);
+              } catch {}
+              if (!hasBasePrefix && basePath.length > 1 && index[pathname] != null) {
+                window.location.replace(basePath + "/" + pathname);
+                return;
               }
               var lowered = pathname.toLowerCase();
               if (lowered !== pathname && index[lowered] != null) {
