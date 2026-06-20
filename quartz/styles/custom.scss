@@ -414,6 +414,16 @@ hr {
   right: 1rem;
 }
 
+:root[dir="rtl"] .sidebar-collapse-toggle.left-toggle {
+  left: auto;
+  right: 1rem;
+}
+
+:root[dir="rtl"] .sidebar-collapse-toggle.right-toggle {
+  left: 1rem;
+  right: auto;
+}
+
 .sidebar-collapse-state {
   position: fixed;
   opacity: 0;
