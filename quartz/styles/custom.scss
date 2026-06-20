@@ -202,7 +202,8 @@ article a del {
 
 .recent-notes .recent-li:has(a[href$="/"]),
 .recent-notes .recent-li:has(a[href$="/index"]),
-.recent-notes .recent-li:has(a[href$="/parsalogue/"]) {
+.recent-notes .recent-li:has(a[href$="/parsalogue-persian/"]),
+.recent-notes .recent-li:has(a[href$="/parsalogue-english/"]) {
   display: none;
 }
 
@@ -215,34 +216,34 @@ article a del {
   cursor: default;
 }
 
-body[data-slug^="english/"],
+body[data-slug^="parsalogue-english/"],
 body.english-section {
   direction: ltr;
 }
 
-body[data-slug^="english/"] .center,
-body[data-slug^="english/"] .page-header,
+body[data-slug^="parsalogue-english/"] .center,
+body[data-slug^="parsalogue-english/"] .page-header,
 body.english-section .center,
 body.english-section .page-header {
   direction: ltr;
   text-align: left;
 }
 
-body[data-slug^="english/"] .center article,
+body[data-slug^="parsalogue-english/"] .center article,
 body.english-section .center article {
   direction: ltr;
 }
 
-body[data-slug^="english/"] .center article p,
-body[data-slug^="english/"] .center article li,
+body[data-slug^="parsalogue-english/"] .center article p,
+body[data-slug^="parsalogue-english/"] .center article li,
 body.english-section .center article p,
 body.english-section .center article li {
   text-align: left;
 }
 
-body[data-slug^="english/"] .graph,
-body[data-slug^="english/"] .explorer,
-body[data-slug^="english/"] .recent-notes,
+body[data-slug^="parsalogue-english/"] .graph,
+body[data-slug^="parsalogue-english/"] .explorer,
+body[data-slug^="parsalogue-english/"] .recent-notes,
 body.english-section .graph,
 body.english-section .explorer,
 body.english-section .recent-notes {

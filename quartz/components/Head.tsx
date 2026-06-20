@@ -164,24 +164,33 @@ export default (() => {
                   dir: document.documentElement.dir || "rtl",
                 }
 
+                const setAttributeIfNeeded = (element, attribute, value) => {
+                  if (element.getAttribute(attribute) !== value) {
+                    element.setAttribute(attribute, value)
+                  }
+                }
+
                 const localizeEnglishSection = () => {
-                  const isEnglishSection = document.body?.dataset.slug?.startsWith("english/")
+                  const slug = document.body?.dataset.slug ?? ""
+                  const isEnglishSection = slug.startsWith("parsalogue-english/")
                   document.body?.classList.toggle("english-section", Boolean(isEnglishSection))
 
                   if (!isEnglishSection) {
-                    document.documentElement.lang = defaultDocumentLocale.lang
-                    document.documentElement.dir = defaultDocumentLocale.dir
-                    document.body?.removeAttribute("dir")
+                    setAttributeIfNeeded(document.documentElement, "lang", defaultDocumentLocale.lang)
+                    setAttributeIfNeeded(document.documentElement, "dir", defaultDocumentLocale.dir)
+                    if (document.body?.hasAttribute("dir")) document.body.removeAttribute("dir")
                     return
                   }
 
-                  document.documentElement.lang = "en"
-                  document.documentElement.dir = "ltr"
-                  document.body.dir = "ltr"
+                  setAttributeIfNeeded(document.documentElement, "lang", "en")
+                  setAttributeIfNeeded(document.documentElement, "dir", "ltr")
+                  if (document.body) setAttributeIfNeeded(document.body, "dir", "ltr")
 
                   const setText = (selector, text) => {
                     document.querySelectorAll(selector).forEach((element) => {
-                      if (element instanceof HTMLElement) element.textContent = text
+                      if (element instanceof HTMLElement && element.textContent !== text) {
+                        element.textContent = text
+                      }
                     })
                   }
 
@@ -193,16 +202,16 @@ export default (() => {
 
                   document.querySelectorAll(".search-button").forEach((button) => {
                     if (!(button instanceof HTMLElement)) return
-                    button.setAttribute("aria-label", "Search")
+                    setAttributeIfNeeded(button, "aria-label", "Search")
                     button.querySelectorAll("p").forEach((label) => {
-                      label.textContent = "Search"
+                      if (label.textContent !== "Search") label.textContent = "Search"
                     })
                   })
 
                   document.querySelectorAll("input[type='search'], .search-bar").forEach((input) => {
                     if (!(input instanceof HTMLInputElement)) return
-                    input.placeholder = "Search"
-                    input.setAttribute("aria-label", "Search")
+                    if (input.placeholder !== "Search") input.placeholder = "Search"
+                    setAttributeIfNeeded(input, "aria-label", "Search")
                   })
                 }
 

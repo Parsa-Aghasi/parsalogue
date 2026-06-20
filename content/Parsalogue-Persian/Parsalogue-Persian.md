@@ -1,6 +1,8 @@
 ---
-title: Parsalogue
+title: Persian Parsalogue
 aliases:
+  - parsalogue
+  - Parsalogue/Parsalogue
   - persian/fa
   - Persian/fa
 cssclasses:
