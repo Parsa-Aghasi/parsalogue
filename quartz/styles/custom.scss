@@ -140,6 +140,23 @@ blockquote {
   text-align: left;
 }
 
+.podcast-gallery {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  margin: 1rem 0 2.3rem;
+}
+
+.podcast-gallery img {
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--lightgray);
+  border-radius: 8px;
+  box-sizing: border-box;
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
 .page:has(.language-gate) {
   min-height: 100dvh;
 }

@@ -274,6 +274,30 @@ export default (() => {
                   })
                 }
 
+                const getSiteBasePath = () => {
+                  const configuredBase = document.body?.dataset.basepath ?? ""
+                  if (configuredBase) return configuredBase
+
+                  const slug = (document.body?.dataset.slug ?? "").replace(/\\/index$/, "")
+                  const pagePath = window.location.pathname.replace(/\\/$/, "")
+                  if (!slug) return pagePath
+
+                  const suffix = "/" + slug
+                  return pagePath.endsWith(suffix) ? pagePath.slice(0, -suffix.length) : ""
+                }
+
+                const normalizeExplorerLinks = () => {
+                  const basePath = getSiteBasePath()
+                  if (!basePath) return
+
+                  document.querySelectorAll(".explorer a[href^='/']").forEach((link) => {
+                    if (!(link instanceof HTMLAnchorElement)) return
+                    const href = link.getAttribute("href") ?? ""
+                    if (!href || href.startsWith(basePath + "/")) return
+                    link.setAttribute("href", basePath + href)
+                  })
+                }
+
                 const localizeEnglishSection = () => {
                   const slug = document.body?.dataset.slug ?? ""
                   const isEnglishSection = slug.startsWith("parsalogue-english/")
@@ -326,6 +350,7 @@ export default (() => {
                   ensureSidebarCollapseControls()
                   ensureGraphCloseButtons()
                   localizeEnglishSection()
+                  normalizeExplorerLinks()
                   renderInlineTitleMarkup()
                   applyBlockquoteDirections()
                 }
