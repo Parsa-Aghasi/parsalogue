@@ -305,6 +305,15 @@ blockquote {
   overflow-wrap: anywhere;
 }
 
+.explorer-content ul li > a.nav-file-title {
+  box-sizing: border-box;
+  display: block;
+  padding-block: 0.15rem;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
 .article-title del,
 .breadcrumb-container del,
 .recent-notes del,

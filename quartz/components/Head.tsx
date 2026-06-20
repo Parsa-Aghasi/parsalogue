@@ -293,9 +293,39 @@ export default (() => {
                   document.querySelectorAll(".explorer a[href^='/']").forEach((link) => {
                     if (!(link instanceof HTMLAnchorElement)) return
                     const href = link.getAttribute("href") ?? ""
-                    if (!href || href.startsWith(basePath + "/")) return
-                    link.setAttribute("href", basePath + href)
+                    if (href && !href.startsWith(basePath + "/")) {
+                      link.setAttribute("href", basePath + href)
+                    }
+                    link.dataset.routerIgnore = "true"
                   })
+                }
+
+                const ensureExplorerNativeNavigation = () => {
+                  if (document.documentElement.dataset.explorerNativeNavigation === "true") return
+                  document.documentElement.dataset.explorerNativeNavigation = "true"
+
+                  document.addEventListener(
+                    "click",
+                    (event) => {
+                      if (event.defaultPrevented) return
+                      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+
+                      const target = event.target
+                      if (!(target instanceof Element)) return
+
+                      const link = target.closest(".explorer a[href]")
+                      if (!(link instanceof HTMLAnchorElement)) return
+                      if (link.target && link.target !== "_self") return
+
+                      const url = new URL(link.href)
+                      if (url.origin !== window.location.origin) return
+
+                      event.preventDefault()
+                      event.stopImmediatePropagation()
+                      window.location.assign(url.href)
+                    },
+                    true,
+                  )
                 }
 
                 const localizeEnglishSection = () => {
@@ -349,6 +379,7 @@ export default (() => {
                 const enhancePage = () => {
                   ensureSidebarCollapseControls()
                   ensureGraphCloseButtons()
+                  ensureExplorerNativeNavigation()
                   localizeEnglishSection()
                   normalizeExplorerLinks()
                   renderInlineTitleMarkup()
