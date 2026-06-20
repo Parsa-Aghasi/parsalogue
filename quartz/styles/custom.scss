@@ -784,3 +784,105 @@ hr {
     border-right: 1px solid var(--lightgray);
   }
 }
+
+@media (hover: none) and (pointer: coarse) and (max-width: 1100px),
+  (max-width: 950px) and (orientation: landscape) {
+  body {
+    overflow-x: hidden;
+  }
+
+  .page {
+    max-width: 100%;
+  }
+
+  .page > #quartz-body {
+    box-sizing: border-box;
+    display: block;
+    padding: 1.15rem clamp(1rem, 4vw, 1.35rem) 2.5rem;
+    width: 100%;
+  }
+
+  .sidebar-collapse-toggle,
+  .sidebar-collapse-state,
+  .page > #quartz-body .sidebar.right,
+  .page > #quartz-body .recent-notes {
+    display: none !important;
+  }
+
+  .page > #quartz-body .sidebar.left {
+    align-items: stretch;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    height: auto;
+    margin: 0 auto 1.5rem;
+    max-height: none;
+    max-width: 42rem;
+    overflow: visible;
+    padding: 0;
+    position: static;
+    width: 100%;
+  }
+
+  .page > #quartz-body .sidebar.left .page-title {
+    font-size: 1.45rem;
+    order: 1;
+    text-align: center;
+  }
+
+  .page > #quartz-body .sidebar.left .page-title a {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .page > #quartz-body .sidebar.left .page-title a::before {
+    width: 2rem;
+  }
+
+  .page > #quartz-body .sidebar.left .flex-component {
+    direction: ltr;
+    justify-content: flex-start;
+    order: 2;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .page > #quartz-body .sidebar.left .search {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .page > #quartz-body .sidebar.left .explorer {
+    box-sizing: border-box;
+    order: 3;
+    width: 100%;
+  }
+
+  .page > #quartz-body .sidebar.left .explorer-content,
+  .page > #quartz-body .sidebar.left .explorer-ul {
+    box-sizing: border-box;
+    display: block !important;
+    margin-inline: 0;
+    max-height: none;
+    max-width: 100%;
+    overflow: visible;
+    padding-inline: 0;
+    transform: none;
+    width: 100%;
+  }
+
+  .page > #quartz-body .sidebar.left .tree-item-self {
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+
+  .page > #quartz-body .center {
+    box-sizing: border-box;
+    display: block;
+    margin: 0 auto;
+    max-width: 42rem;
+    min-width: 0;
+    width: 100%;
+  }
+}
