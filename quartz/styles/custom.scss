@@ -334,6 +334,11 @@ article a del {
   display: none;
 }
 
+body[data-slug="parsalogue-persian/index"] .page-listing,
+body[data-slug="parsalogue-english/index"] .page-listing {
+  display: none !important;
+}
+
 .breadcrumb-static {
   color: var(--gray);
   cursor: default;
@@ -609,7 +614,7 @@ hr {
   }
 
   .page > #quartz-body .sidebar.right {
-    display: none;
+    display: none !important;
   }
 
   .page > #quartz-body .sidebar.left {
@@ -618,12 +623,12 @@ hr {
     display: flex;
     flex-direction: column;
     gap: 0.85rem;
-    margin: 0 auto 1.5rem;
+    margin: 0 auto 1.5rem !important;
     max-height: none;
     max-width: 42rem;
     overflow: visible;
-    padding: 0;
-    position: static;
+    padding: 0 !important;
+    position: static !important;
     width: 100%;
   }
 
@@ -642,8 +647,10 @@ hr {
     width: 2rem;
   }
 
-  .page > #quartz-body .sidebar.left .recent-notes {
-    display: none;
+  .page > #quartz-body .recent-notes,
+  .page > #quartz-body .sidebar.left .recent-notes,
+  .page > #quartz-body .sidebar.left .explorer {
+    display: none !important;
   }
 
   .page > #quartz-body .sidebar.left .flex-component {
@@ -816,12 +823,12 @@ hr {
     flex-direction: column;
     gap: 0.85rem;
     height: auto;
-    margin: 0 auto 1.5rem;
+    margin: 0 auto 1.5rem !important;
     max-height: none;
     max-width: 42rem;
     overflow: visible;
-    padding: 0;
-    position: static;
+    padding: 0 !important;
+    position: static !important;
     width: 100%;
   }
 
@@ -855,6 +862,7 @@ hr {
 
   .page > #quartz-body .sidebar.left .explorer {
     box-sizing: border-box;
+    display: none !important;
     order: 3;
     width: 100%;
   }
