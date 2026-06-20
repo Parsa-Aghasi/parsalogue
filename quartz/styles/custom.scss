@@ -15,6 +15,12 @@
   scrollbar-gutter: stable;
 }
 
+.page > #quartz-body .sidebar .explorer-content,
+.page > #quartz-body .sidebar .overflow {
+  max-height: none;
+  overflow: visible;
+}
+
 .page > #quartz-body .sidebar.left,
 .page > #quartz-body .sidebar.right {
   padding-bottom: 3rem;
@@ -248,6 +254,11 @@ body.english-section .graph,
 body.english-section .explorer,
 body.english-section .recent-notes {
   display: none !important;
+}
+
+body.english-section footer {
+  direction: ltr;
+  text-align: left;
 }
 
 hr {

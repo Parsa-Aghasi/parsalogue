@@ -37,7 +37,7 @@ export const DefaultFrame: PageFrame = {
         />
         <label
           class="sidebar-collapse-toggle left-toggle"
-          for="collapse-right-sidebar"
+          for="collapse-left-sidebar"
           title="Collapse left sidebar"
           aria-label="Collapse left sidebar"
         >
@@ -55,7 +55,7 @@ export const DefaultFrame: PageFrame = {
         </label>
         <label
           class="sidebar-collapse-toggle right-toggle"
-          for="collapse-left-sidebar"
+          for="collapse-right-sidebar"
           title="Collapse right sidebar"
           aria-label="Collapse right sidebar"
         >

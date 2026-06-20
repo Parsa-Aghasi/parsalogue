@@ -170,6 +170,74 @@ export default (() => {
                   }
                 }
 
+                const jalaliMonths = {
+                  Farvardin: "Farvardin",
+                  Ordibehesht: "Ordibehesht",
+                  Khordad: "Khordad",
+                  Tir: "Tir",
+                  Mordad: "Mordad",
+                  Shahrivar: "Shahrivar",
+                  Mehr: "Mehr",
+                  Aban: "Aban",
+                  Azar: "Azar",
+                  Dey: "Dey",
+                  Bahman: "Bahman",
+                  Esfand: "Esfand",
+                }
+
+                const formatEnglishDate = (isoDate) => {
+                  const date = new Date(isoDate)
+                  if (Number.isNaN(date.getTime())) return null
+
+                  const gregorian = date.toLocaleDateString("en-GB", {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  })
+
+                  try {
+                    const parts = new Intl.DateTimeFormat("en-US-u-ca-persian", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    }).formatToParts(date)
+                    const day = parts.find((part) => part.type === "day")?.value
+                    const month = parts.find((part) => part.type === "month")?.value
+                    const year = parts.find((part) => part.type === "year")?.value
+                    if (day && month && year) {
+                      return (
+                        gregorian +
+                        " - " +
+                        day +
+                        " " +
+                        (jalaliMonths[month] ?? month) +
+                        " " +
+                        year
+                      )
+                    }
+                  } catch {}
+
+                  return gregorian
+                }
+
+                const localizeEnglishDates = () => {
+                  document.querySelectorAll("time[datetime]").forEach((time) => {
+                    if (!(time instanceof HTMLTimeElement)) return
+                    const formatted = formatEnglishDate(time.dateTime)
+                    if (formatted && time.textContent !== formatted) time.textContent = formatted
+                  })
+                }
+
+                const localizeFooter = (isEnglishSection) => {
+                  document.querySelectorAll("footer p").forEach((paragraph) => {
+                    if (!(paragraph instanceof HTMLElement)) return
+                    const firstNode = paragraph.firstChild
+                    if (!firstNode || firstNode.nodeType !== Node.TEXT_NODE) return
+                    const text = isEnglishSection ? "Made with " : "ساخته شده با "
+                    if (firstNode.textContent !== text) firstNode.textContent = text
+                  })
+                }
+
                 const localizeEnglishSection = () => {
                   const slug = document.body?.dataset.slug ?? ""
                   const isEnglishSection = slug.startsWith("parsalogue-english/")
@@ -179,12 +247,15 @@ export default (() => {
                     setAttributeIfNeeded(document.documentElement, "lang", defaultDocumentLocale.lang)
                     setAttributeIfNeeded(document.documentElement, "dir", defaultDocumentLocale.dir)
                     if (document.body?.hasAttribute("dir")) document.body.removeAttribute("dir")
+                    localizeFooter(false)
                     return
                   }
 
                   setAttributeIfNeeded(document.documentElement, "lang", "en")
                   setAttributeIfNeeded(document.documentElement, "dir", "ltr")
                   if (document.body) setAttributeIfNeeded(document.body, "dir", "ltr")
+                  localizeEnglishDates()
+                  localizeFooter(true)
 
                   const setText = (selector, text) => {
                     document.querySelectorAll(selector).forEach((element) => {

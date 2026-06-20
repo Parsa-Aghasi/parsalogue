@@ -10,7 +10,7 @@ cssclasses:
   - hide-folder-list
 ---
 
-Parsa Aghasi's writings
+Written Thoughts of Parsa Aghasi
 
 ## Notes
 
