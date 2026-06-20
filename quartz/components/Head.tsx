@@ -159,6 +159,42 @@ export default (() => {
                   })
                 }
 
+                const syncSidebarCollapse = () => {
+                  const layout = document.querySelector("#quartz-body")
+                  const leftState = document.querySelector("#collapse-left-sidebar")
+                  const rightState = document.querySelector("#collapse-right-sidebar")
+
+                  if (!(layout instanceof HTMLElement)) return
+                  if (!(leftState instanceof HTMLInputElement)) return
+                  if (!(rightState instanceof HTMLInputElement)) return
+
+                  layout.classList.toggle("left-sidebar-collapsed", leftState.checked)
+                  layout.classList.toggle("right-sidebar-collapsed", rightState.checked)
+                }
+
+                const ensureSidebarCollapseControls = () => {
+                  const layout = document.querySelector("#quartz-body")
+                  if (!(layout instanceof HTMLElement)) return
+                  if (layout.dataset.sidebarCollapseReady === "true") {
+                    syncSidebarCollapse()
+                    return
+                  }
+
+                  layout.dataset.sidebarCollapseReady = "true"
+
+                  document.querySelectorAll(".sidebar-collapse-state").forEach((input) => {
+                    if (!(input instanceof HTMLInputElement)) return
+                    input.addEventListener("change", syncSidebarCollapse)
+                  })
+
+                  document.querySelectorAll(".sidebar-collapse-toggle").forEach((toggle) => {
+                    if (!(toggle instanceof HTMLLabelElement)) return
+                    toggle.addEventListener("click", () => window.setTimeout(syncSidebarCollapse, 0))
+                  })
+
+                  syncSidebarCollapse()
+                }
+
                 const defaultDocumentLocale = {
                   lang: document.documentElement.lang || "fa",
                   dir: document.documentElement.dir || "rtl",
@@ -287,6 +323,7 @@ export default (() => {
                 }
 
                 const enhancePage = () => {
+                  ensureSidebarCollapseControls()
                   ensureGraphCloseButtons()
                   localizeEnglishSection()
                   renderInlineTitleMarkup()

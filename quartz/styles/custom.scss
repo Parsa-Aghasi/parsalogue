@@ -26,6 +26,45 @@
   padding-bottom: 3rem;
 }
 
+@media all and ($desktop) {
+  html,
+  body {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .page {
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  .page > #quartz-body {
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  .page > #quartz-body .sidebar {
+    box-sizing: border-box;
+    height: 100dvh;
+    max-height: 100dvh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: sticky;
+    top: 0;
+  }
+
+  .page > #quartz-body .center {
+    box-sizing: border-box;
+    height: 100dvh;
+    max-height: 100dvh;
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+  }
+}
+
 .page-title a {
   align-items: center;
   color: var(--secondary);
@@ -386,7 +425,13 @@ hr {
   display: none;
 }
 
-.page > #quartz-body:has(.left-state:checked) {
+.page > #quartz-body.left-sidebar-collapsed .left.sidebar,
+.page > #quartz-body.right-sidebar-collapsed .right.sidebar {
+  display: none;
+}
+
+.page > #quartz-body:has(.left-state:checked),
+.page > #quartz-body.left-sidebar-collapsed {
   grid-template-columns: 0 minmax(0, 950px) #{$sidePanelWidth} !important;
   grid-template-areas:
     "grid-header grid-header grid-sidebar-right"
@@ -395,7 +440,8 @@ hr {
   justify-content: center;
 }
 
-.page > #quartz-body:has(.right-state:checked) {
+.page > #quartz-body:has(.right-state:checked),
+.page > #quartz-body.right-sidebar-collapsed {
   grid-template-columns: #{$sidePanelWidth} minmax(0, 950px) 0 !important;
   grid-template-areas:
     "grid-sidebar-left grid-header grid-header"
@@ -404,7 +450,8 @@ hr {
   justify-content: center;
 }
 
-.page > #quartz-body:has(.left-state:checked):has(.right-state:checked) {
+.page > #quartz-body:has(.left-state:checked):has(.right-state:checked),
+.page > #quartz-body.left-sidebar-collapsed.right-sidebar-collapsed {
   grid-template-columns: 0 minmax(0, 900px) 0 !important;
   grid-template-areas:
     "grid-header grid-header grid-header"
@@ -414,27 +461,34 @@ hr {
 }
 
 .page > #quartz-body:has(.left-state:checked) .center,
-.page > #quartz-body:has(.right-state:checked) .center {
+.page > #quartz-body:has(.right-state:checked) .center,
+.page > #quartz-body.left-sidebar-collapsed .center,
+.page > #quartz-body.right-sidebar-collapsed .center {
   grid-column: 2;
   grid-row: 1 / 4;
   min-width: 0;
   width: 100%;
 }
 
-.page > #quartz-body:has(.left-state:checked) .left-toggle {
+.page > #quartz-body:has(.left-state:checked) .left-toggle,
+.page > #quartz-body.left-sidebar-collapsed .left-toggle {
   transform: rotate(180deg);
 }
 
-.page > #quartz-body:has(.right-state:checked) .right-toggle {
+.page > #quartz-body:has(.right-state:checked) .right-toggle,
+.page > #quartz-body.right-sidebar-collapsed .right-toggle {
   transform: rotate(180deg);
 }
 
 .page > #quartz-body:has(.left-state:checked) .center,
-.page > #quartz-body:has(.right-state:checked) .center {
+.page > #quartz-body:has(.right-state:checked) .center,
+.page > #quartz-body.left-sidebar-collapsed .center,
+.page > #quartz-body.right-sidebar-collapsed .center {
   font-size: 1.08rem;
 }
 
-.page > #quartz-body:has(.left-state:checked):has(.right-state:checked) .center {
+.page > #quartz-body:has(.left-state:checked):has(.right-state:checked) .center,
+.page > #quartz-body.left-sidebar-collapsed.right-sidebar-collapsed .center {
   font-size: 1.13rem;
 }
 
