@@ -14,4 +14,4 @@ Written Thoughts of Parsa Aghasi
 
 ## Notes
 
-English notes will appear here.
+- [[A system]]
