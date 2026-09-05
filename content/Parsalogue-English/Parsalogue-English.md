@@ -1,6 +1,5 @@
 ---
 title: English Parsalogue
-unlisted: true
 aliases:
   - english
   - English/English
