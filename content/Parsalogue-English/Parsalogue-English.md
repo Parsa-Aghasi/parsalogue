@@ -13,4 +13,5 @@ Written Thoughts of Parsa Aghasi
 
 ## Notes
 
+- [[Circulation - an unnoticed delicacy(1)|Circulation: an unnoticed delicacy(1)]]
 - [[A system]]
