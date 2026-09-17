@@ -24,6 +24,35 @@ const isSamePage = (url: URL): boolean => {
   return sameOrigin && samePath
 }
 
+const scrollToAnchor = (el: HTMLElement) => {
+  const center = el.closest<HTMLElement>(".center")
+  const centerOverflow = center ? window.getComputedStyle(center).overflowY : "visible"
+  const centerOwnsScroll =
+    center !== null &&
+    (centerOverflow === "auto" || centerOverflow === "scroll") &&
+    center.scrollHeight > center.clientHeight
+
+  if (centerOwnsScroll) {
+    // Firefox may also move the document when a target sits inside a nested scroller.
+    // Keep desktop navigation inside the center column so no root scrollbar appears.
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" })
+    center.closest<HTMLElement>("#quartz-body")?.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "auto",
+    })
+    const centerTop = center.getBoundingClientRect().top
+    const targetTop = el.getBoundingClientRect().top
+    center.scrollTo({
+      top: center.scrollTop + targetTop - centerTop,
+      behavior: "smooth",
+    })
+    return
+  }
+
+  el.scrollIntoView({ block: "start", inline: "nearest" })
+}
+
 const getOpts = ({ target }: Event): { url: URL; scroll?: boolean } | undefined => {
   if (!isElement(target)) return
   if (target.attributes.getNamedItem("target")?.value === "_blank") return
@@ -114,7 +143,7 @@ async function _navigate(url: URL, isBack: boolean = false) {
   if (!isBack) {
     if (url.hash) {
       const el = document.getElementById(decodeURIComponent(url.hash.substring(1)))
-      el?.scrollIntoView()
+      if (el) scrollToAnchor(el)
     } else {
       window.scrollTo({ top: 0 })
     }
@@ -162,7 +191,7 @@ function createRouter() {
 
       if (isSamePage(url) && url.hash) {
         const el = document.getElementById(decodeURIComponent(url.hash.substring(1)))
-        el?.scrollIntoView()
+        if (el) scrollToAnchor(el)
         history.pushState({}, "", url)
         return
       }
