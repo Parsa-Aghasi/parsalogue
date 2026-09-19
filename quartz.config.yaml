@@ -7,7 +7,7 @@ configuration:
   analytics:
     provider: plausible
   locale: fa-IR
-  baseUrl: Parsa-Aghasi.github.io/parsalogue
+  baseUrl: parsalogue.com
   ignorePatterns:
     - private
     - templates
@@ -136,6 +136,7 @@ plugins:
     options:
       enableSiteMap: true
       enableRSS: true
+      rssSlug: rss
   - source: github:quartz-community/favicon
     enabled: true
   - source: github:quartz-community/og-image
@@ -263,6 +264,7 @@ plugins:
     options:
       links:
         GitHub: https://github.com/Parsa-Aghasi/parsalogue
+        RSS: https://parsalogue.com/rss.xml
   - source: github:quartz-community/recent-notes
     enabled: true
     options:

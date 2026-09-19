@@ -1,4 +1,3 @@
-import { i18n } from "../../i18n"
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "../types"
 
 const NotFound: QuartzComponent = ({ cfg }: QuartzComponentProps) => {
@@ -7,10 +6,28 @@ const NotFound: QuartzComponent = ({ cfg }: QuartzComponentProps) => {
   const baseDir = configuredBaseDir
 
   return (
-    <article class="popover-hint">
-      <h1>404</h1>
-      <p>{i18n(cfg.locale).pages.error.notFound}</p>
-      <a href={baseDir}>{i18n(cfg.locale).pages.error.home}</a>
+    <article class="not-found-page popover-hint">
+      <p class="not-found-page__code" aria-hidden="true">
+        404
+      </p>
+      <div class="not-found-page__message" lang="en" dir="ltr">
+        <h1>Page not found</h1>
+        <p>This page is private or does not exist.</p>
+      </div>
+      <div class="not-found-page__divider" aria-hidden="true" />
+      <div class="not-found-page__message" lang="fa" dir="rtl">
+        <h2>صفحه پیدا نشد</h2>
+        <p>این صفحه خصوصی است یا وجود ندارد.</p>
+      </div>
+      <a class="not-found-page__home" href={baseDir}>
+        <span lang="en" dir="ltr">
+          Return home
+        </span>
+        <span aria-hidden="true">/</span>
+        <span lang="fa" dir="rtl">
+          بازگشت به صفحه اصلی
+        </span>
+      </a>
       <script
         dangerouslySetInnerHTML={{
           __html: `
