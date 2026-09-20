@@ -1,6 +1,6 @@
 ---
 title: "Circulation: an unnoticed delicacy(1)"
-description: An essay on blood velocity, volumetric flow, vessel diameter, and the misleading mental models used to understand circulation.
+description: An article to highlight the distinction between blood velocity and volumetric flow and to explain the misleading mental models used to understand circulation.
 date: 2026-09-14
 rss: true
 lang: en

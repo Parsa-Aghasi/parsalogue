@@ -1,6 +1,6 @@
 ---
 title: Parsalogue
-description: "Parsalogue, the bilingual personal blog of Parsa Aghasi: English and Persian essays on science, systems, writing, and life."
+description: "Parsalogue, the bilingual personal blog of Parsa Aghasi: English and Persian articles on science, systems, writing, and life."
 lang: en
 ---
 

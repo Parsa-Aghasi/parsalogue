@@ -1,10 +1,12 @@
 ---
 title: "Circulation: an unnoticed delicacy(2)"
-description: An essay on discrete and continuous models in circulation, from capillary recruitment to blood flow and physiological regulation.
+description: An article to emphasize on the discrete nature of capillaries and the capillary system, and to highlight its difference with continuous essence of arterial tree, arterioles, veins and venules.
 date: 2026-09-19
 rss: true
 lang: en
 ---
+
+Note: this is the second article in a series of articles regarding circulatory system and the delicacies you may have missed. You can find the first article in the series [[Circulation - an unnoticed delicacy(1)|here]].
 
 # A second plane hit the second tower.
 ![[they-hit-the-second-tower-meme-944q10.jpg]]
