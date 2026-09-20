@@ -1,5 +1,6 @@
 ---
 title: Persian Parsalogue
+description: نوشته‌های پارسا آقاسی درباره زندگی، نوشتن، ترس، دانش، مدل‌سازی و تجربه‌های شخصی.
 aliases:
   - parsalogue
   - Parsalogue/Parsalogue

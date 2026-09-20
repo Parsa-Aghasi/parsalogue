@@ -336,7 +336,7 @@ export function renderPage(
   const frame = resolveFrame(frameName)
 
   const lang = componentData.fileData.frontmatter?.lang ?? cfg.locale?.split("-")[0] ?? "en"
-  const direction = i18n(cfg.locale).direction ?? "ltr"
+  const direction = ["ar", "fa", "he", "ur"].includes(lang.split("-")[0]) ? "rtl" : "ltr"
   // During local dev (--serve), the dev server serves from root without the
   // baseUrl subpath, so basePath must be empty to avoid broken links.
   const basePath =

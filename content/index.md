@@ -1,7 +1,7 @@
 ---
 title: Parsalogue
-description: Choose the English or Persian edition of Parsalogue.
-unlisted: true
+description: "Parsalogue, the bilingual personal blog of Parsa Aghasi: English and Persian essays on science, systems, writing, and life."
+lang: en
 ---
 
 <section class="address-change-notice" data-address-change-notice hidden>

@@ -1,5 +1,5 @@
 import { i18n } from "../i18n"
-import { FullSlug, getFileExtension, joinSegments, pathToRoot } from "../util/path"
+import { getFileExtension, joinSegments, simplifySlug } from "../util/path"
 import { CSSResourceToStyleElement, JSResourceToScriptElement } from "../util/resources"
 import { googleFontHref, googleFontSubsetHref } from "../util/theme"
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
@@ -23,13 +23,52 @@ export default (() => {
     const { css, js, additionalHead } = externalResources
 
     const url = new URL(`https://${cfg.baseUrl ?? "example.com"}`)
-    const path = url.pathname as FullSlug
-    const baseDir = fileData.slug === "404" ? path : pathToRoot(fileData.slug!)
-    const iconPath = joinSegments(baseDir, "static/icon.png")
+    const sitePath = url.pathname
+    const canonicalSlug = fileData.slug === "404" ? "/" : simplifySlug(fileData.slug!)
+    const canonicalUrl = joinSegments(url.toString(), encodeURI(canonicalSlug))
+    const iconUrl = joinSegments(url.toString(), "static/icon.png")
+    const faviconUrl = joinSegments(url.toString(), "favicon.ico")
+    const pageLanguage = fileData.frontmatter?.lang ?? cfg.locale?.split("-")[0] ?? "en"
+    const isArticle = fileData.frontmatter?.rss === true
+    const dates = fileData.dates as
+      | { created?: Date; modified?: Date; published?: Date }
+      | undefined
 
     // Url of current page
-    const socialUrl =
-      fileData.slug === "404" ? url.toString() : joinSegments(url.toString(), fileData.slug!)
+    const socialUrl = canonicalUrl
+
+    const structuredData =
+      fileData.slug === "index"
+        ? {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: cfg.pageTitle,
+            url: canonicalUrl,
+            description,
+            inLanguage: ["en", "fa"],
+          }
+        : isArticle
+          ? {
+              "@context": "https://schema.org",
+              "@type": "BlogPosting",
+              headline: fileData.frontmatter?.title ?? title,
+              description,
+              url: canonicalUrl,
+              mainEntityOfPage: canonicalUrl,
+              inLanguage: pageLanguage,
+              datePublished: (dates?.published ?? dates?.created)?.toISOString(),
+              dateModified: dates?.modified?.toISOString(),
+              author: {
+                "@type": "Person",
+                name: "Parsa Aghasi",
+              },
+              isPartOf: {
+                "@type": "WebSite",
+                name: cfg.pageTitle,
+                url: joinSegments(url.toString(), "/"),
+              },
+            }
+          : undefined
 
     const usesCustomOgImage = ctx.cfg.plugins.emitters.some(
       (e) => e.name === CustomOgImagesEmitterName,
@@ -323,7 +362,7 @@ export default (() => {
                   })
                 }
 
-                const configuredSitePath = ${JSON.stringify(path === "/" ? "" : path)}
+                const configuredSitePath = ${JSON.stringify(sitePath === "/" ? "" : sitePath)}
 
                 const getSiteBasePath = () => {
                   const configuredBase = document.body?.dataset.basepath ?? ""
@@ -451,9 +490,9 @@ export default (() => {
           }}
         />
 
-        <meta name="og:site_name" content={cfg.pageTitle}></meta>
+        <meta property="og:site_name" content={cfg.pageTitle}></meta>
         <meta property="og:title" content={title} />
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content={isArticle ? "article" : "website"} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
@@ -477,12 +516,25 @@ export default (() => {
             <meta property="twitter:domain" content={cfg.baseUrl}></meta>
             <meta property="og:url" content={socialUrl}></meta>
             <meta property="twitter:url" content={socialUrl}></meta>
+            {fileData.slug !== "404" && <link rel="canonical" href={canonicalUrl} />}
           </>
         )}
 
-        <link rel="icon" href={iconPath} />
+        <link rel="icon" href={iconUrl} type="image/png" sizes="256x256" />
+        <link rel="shortcut icon" href={faviconUrl} type="image/x-icon" sizes="48x48" />
+        <link rel="apple-touch-icon" href={iconUrl} sizes="256x256" />
         <meta name="description" content={description} />
+        {fileData.slug === "404" && <meta name="robots" content="noindex" />}
         <meta name="generator" content="Quartz" />
+
+        {structuredData && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
+            }}
+          />
+        )}
 
         {css.map((resource) => CSSResourceToStyleElement(resource, true))}
         {js

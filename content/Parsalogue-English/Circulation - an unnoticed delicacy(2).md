@@ -1,6 +1,9 @@
 ---
 title: "Circulation: an unnoticed delicacy(2)"
+description: An essay on discrete and continuous models in circulation, from capillary recruitment to blood flow and physiological regulation.
 date: 2026-09-19
+rss: true
+lang: en
 ---
 
 # A second plane hit the second tower.
