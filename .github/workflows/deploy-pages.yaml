@@ -39,6 +39,9 @@ jobs:
       - name: Build
         run: npx quartz build
 
+      - name: Normalize RSS metadata
+        run: npm run normalize-rss
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
