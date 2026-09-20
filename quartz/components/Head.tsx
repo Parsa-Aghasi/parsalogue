@@ -283,11 +283,6 @@ export default (() => {
                   window.setTimeout(() => continueButton.focus(), 0)
                 }
 
-                const defaultDocumentLocale = {
-                  lang: document.documentElement.lang || "fa",
-                  dir: document.documentElement.dir || "rtl",
-                }
-
                 const setAttributeIfNeeded = (element, attribute, value) => {
                   if (element.getAttribute(attribute) !== value) {
                     element.setAttribute(attribute, value)
@@ -347,8 +342,34 @@ export default (() => {
                 const localizeEnglishDates = () => {
                   document.querySelectorAll("time[datetime]").forEach((time) => {
                     if (!(time instanceof HTMLTimeElement)) return
+                    time.classList.remove("persian-date")
+                    time.removeAttribute("dir")
+                    delete time.dataset.persianDateReady
                     const formatted = formatEnglishDate(time.dateTime)
                     if (formatted && time.textContent !== formatted) time.textContent = formatted
+                  })
+                }
+
+                const stabilizePersianDates = () => {
+                  document.querySelectorAll("time[datetime]").forEach((time) => {
+                    if (!(time instanceof HTMLTimeElement)) return
+                    if (time.dataset.persianDateReady === "true") return
+
+                    const parts = time.textContent?.trim().split(/\s+/) ?? []
+                    if (parts.length !== 3) return
+
+                    const fragment = document.createDocumentFragment()
+                    parts.forEach((part, index) => {
+                      const segment = document.createElement("span")
+                      segment.textContent = part
+                      fragment.appendChild(segment)
+                      if (index < parts.length - 1) fragment.appendChild(document.createTextNode(" "))
+                    })
+
+                    time.replaceChildren(fragment)
+                    time.classList.add("persian-date")
+                    time.setAttribute("dir", "rtl")
+                    time.dataset.persianDateReady = "true"
                   })
                 }
 
@@ -422,12 +443,22 @@ export default (() => {
                 const localizeEnglishSection = () => {
                   const slug = document.body?.dataset.slug ?? ""
                   const isEnglishSection = slug.startsWith("parsalogue-english/")
+                  const isPersianSection = slug.startsWith("parsalogue-persian/")
                   document.body?.classList.toggle("english-section", Boolean(isEnglishSection))
 
-                  if (!isEnglishSection) {
-                    setAttributeIfNeeded(document.documentElement, "lang", defaultDocumentLocale.lang)
-                    setAttributeIfNeeded(document.documentElement, "dir", defaultDocumentLocale.dir)
+                  if (isPersianSection) {
+                    setAttributeIfNeeded(document.documentElement, "lang", "fa")
+                    setAttributeIfNeeded(document.documentElement, "dir", "rtl")
                     if (document.body?.hasAttribute("dir")) document.body.removeAttribute("dir")
+                    stabilizePersianDates()
+                    localizeFooter(false)
+                    return
+                  }
+
+                  if (!isEnglishSection) {
+                    setAttributeIfNeeded(document.documentElement, "lang", "en")
+                    setAttributeIfNeeded(document.documentElement, "dir", "ltr")
+                    if (document.body) setAttributeIfNeeded(document.body, "dir", "ltr")
                     localizeFooter(false)
                     return
                   }
@@ -450,7 +481,7 @@ export default (() => {
                   setText(".toc h3", "Contents")
                   setText(".backlinks h3", "Backlinks")
                   setText(".explorer .title-button h2", "Pages")
-                  setText(".recent-notes h3", "Recent Notes")
+                  setText(".recent-notes > h3", "Recent Notes")
 
                   document.querySelectorAll(".search-button").forEach((button) => {
                     if (!(button instanceof HTMLElement)) return

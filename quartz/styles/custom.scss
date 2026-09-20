@@ -386,6 +386,18 @@ blockquote {
   overflow-wrap: anywhere;
 }
 
+time.persian-date {
+  direction: rtl;
+  display: inline-flex;
+  gap: 0.25em;
+  unicode-bidi: isolate;
+  white-space: nowrap;
+}
+
+time.persian-date > span {
+  unicode-bidi: isolate;
+}
+
 .explorer-content ul li > a.nav-file-title {
   box-sizing: border-box;
   display: block;
@@ -452,10 +464,8 @@ body.english-section .center article li {
 
 body[data-slug^="parsalogue-english/"] .graph,
 body[data-slug^="parsalogue-english/"] .explorer,
-body[data-slug^="parsalogue-english/"] .recent-notes,
 body.english-section .graph,
-body.english-section .explorer,
-body.english-section .recent-notes {
+body.english-section .explorer {
   display: none !important;
 }
 

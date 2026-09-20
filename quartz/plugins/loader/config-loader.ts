@@ -25,6 +25,7 @@ import {
 import { loadComponentsFromPackage } from "./componentLoader"
 import { loadFramesFromPackage } from "./frameLoader"
 import { componentRegistry } from "../../components/registry"
+import LanguageRecentNotes from "../../components/LanguageRecentNotes"
 import { getCondition } from "./conditions"
 
 const CONFIG_YAML_PATH = path.join(process.cwd(), "quartz.config.yaml")
@@ -789,6 +790,10 @@ function buildLayoutForEntries(
       )
     } else {
       component = reg.component as QuartzComponent
+    }
+
+    if (name === "recent-notes") {
+      component = LanguageRecentNotes(component)
     }
 
     // Apply display modifier
