@@ -15,7 +15,7 @@ Note: this is the second article in a series of articles regarding circulatory s
 
 > A **second plane** hit the second tower. America is under attack.
 
-Famously whispered into George W. Bush's ears by his chief of staff on 9 September 2001. 
+Famously whispered into George W. Bush's ears by his chief of staff on 11th September 2001. 
 
 Two Planes. 
 
